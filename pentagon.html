@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><title>Nothing</title>
+<script type="text/javascript" src="scripts/jquery-min.js"></script>
+<script type="text/javascript">
+
+window.onload = function () {
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext('2d');
+
+	var x = 150;
+	var y = 150;
+	var hexAngle = 0.523598776;
+
+	var length = 50;
+	var hexHeight = Math.sin(hexAngle) * length;
+	var hexRadius = Math.cos(hexAngle) * length;
+	var hexRectangleWidth = 2 * hexRadius;
+	var hexRectangleHeight = length + 2*hexHeight;
+
+
+	ctx.beginPath();
+	ctx.moveTo(x + hexRadius, y);
+	ctx.lineTo(x + hexRectangleWidth, y + hexHeight);
+	ctx.lineTo(x + hexRectangleWidth, y + hexHeight + length);
+	ctx.lineTo(x + hexRadius, y + hexRectangleHeight);
+	ctx.lineTo(x, y + length + hexHeight);
+	ctx.lineTo(x, y + hexHeight);
+	ctx.closePath();
+
+	ctx.stroke();
+	
+}
+
+</script>
+</head>
+<body>
+<canvas id="canvas" width="300px" height="300px">
+Canvas not supported
+</canvas>
+</body>
+</html>
