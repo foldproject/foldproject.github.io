@@ -21,6 +21,7 @@ $(document).ready(function () {
 	var mode;
 	var shapeOptionList;
 	var shapeSelection = "square";
+	var degToRad = 0.017453;
 
 	init();
 
@@ -83,6 +84,8 @@ $(document).ready(function () {
 		
 
 		this.angle = ((2 * Math.PI) / 6);
+		if (direction == "left" || direction == "right")
+			this.angle = ((2*Math.PI) / 12)
 		this.line1 = true; 
 		this.line2 = true;
 		this.line3 = true;
@@ -95,7 +98,7 @@ $(document).ready(function () {
 		this.triangleList['three'] = null;
 		this.squareList = {};
 		this.squareList['one'] = null;
-		this.squareList['two'] = null;
+
 
 		this.draw = function (context) {
 			context.lineWidth = this.lineWidth;
@@ -111,11 +114,11 @@ $(document).ready(function () {
 				context.lineTo(this.x + this.radius, y);
 
 			} else if (this.direction == "left") {
-				context.lineTo(this.x - this.radius + 8,this.y + this.radius * Math.sin(this.angle) / 2);
+				context.lineTo(this.x - this.radius,this.y + this.radius * Math.sin(this.angle));
 				context.lineTo(this.x, y + this.radius);
 
 			} else if (this.direction == "right") {
-				context.lineTo(this.x + this.radius - 8,this.y + this.radius * Math.sin(this.angle) / 2);
+				context.lineTo(this.x + this.radius,this.y + this.radius * Math.sin(this.angle));
 				context.lineTo(this.x, y + this.radius);
 			}
 			context.closePath();
@@ -128,9 +131,9 @@ $(document).ready(function () {
 					context.beginPath();
 					context.fillStyle = "black";
 					context.moveTo(x, y);
-					context.lineTo(x + this.radius * Math.cos(this.angle),y - this.radius * Math.sin(this.angle) - 1);
-					context.lineTo(x + this.radius * Math.cos(this.angle) - 5, y - this.radius * Math.sin(this.angle) - 1);
-					context.lineTo(x - 5, y + 1);
+					context.lineTo(x + this.radius * Math.cos(this.angle),y - this.radius * Math.sin(this.angle));
+					context.lineTo(x + this.radius * Math.cos(this.angle) + 6 * Math.cos(150*degToRad), y - this.radius * Math.sin(this.angle) - 6 * Math.sin(150*degToRad));
+					context.lineTo(x + 6 * Math.cos(150*degToRad), y - 6 * Math.sin(150*degToRad));
 					context.closePath();
 					context.fill();
 
@@ -138,28 +141,44 @@ $(document).ready(function () {
 				if((!this.line2)) {
 					context.beginPath();
 					context.fillStyle = "black";
-					context.fillRect(this.x-1, this.y-1, 50, 5);
+					context.fillRect(this.x -1, this.y, 52, 5);
 				}
 				if(!this.line3) {
-					
+					context.beginPath();
+					context.fillStyle = "black";
+					context.moveTo(x + this.radius, y);
+					context.lineTo(x + this.radius * Math.cos(this.angle),y - this.radius * Math.sin(this.angle));
+					context.lineTo(x + this.radius * Math.cos(this.angle) + 6 * Math.cos(30*degToRad), y - this.radius * Math.sin(this.angle) - 6 * Math.sin(30*degToRad));
+					context.lineTo(x + this.radius + 6 * Math.cos(30*degToRad), y - 6 * Math.sin(30*degToRad));
+					context.closePath();
+					context.fill();
 				}
 
 			} else if (direction == "down") {
 				if(!this.line1) {
-					
+					context.beginPath();
+					context.fillStyle = "black";
+					context.fillRect(this.x -1, this.y - 5, 52, 5);
 				} 
 				if(!this.line2) {
 					context.beginPath();
 					context.fillStyle = "black";
 					context.moveTo(x, y);
-					context.lineTo(x + this.radius * Math.cos(this.angle) , y + this.radius * Math.sin(this.angle) + 1);
-					context.lineTo(x + this.radius * Math.cos(this.angle) - 5 , y + this.radius * Math.sin(this.angle) + 1);
-					context.lineTo(x - 5, y - 1);
+					context.lineTo(x + this.radius * Math.cos(this.angle) , y + this.radius * Math.sin(this.angle));
+					context.lineTo(x + this.radius * Math.cos(this.angle) + 6 * Math.cos(210*degToRad) , y + this.radius * Math.sin(this.angle) - 6 * Math.sin(210*degToRad));
+					context.lineTo(x + 6 * Math.cos(210*degToRad), y - 6 * Math.sin(210*degToRad));
 					context.closePath();
 					context.fill();
 				}
 				if(!this.line3) {
-					
+					context.beginPath();
+					context.fillStyle = "black";
+					context.moveTo(x + this.radius, y);
+					context.lineTo(x + this.radius * Math.cos(this.angle) , y + this.radius * Math.sin(this.angle));
+					context.lineTo(x + this.radius * Math.cos(this.angle) - 6 * Math.cos(210*degToRad), y + this.radius * Math.sin(this.angle) - 6 * Math.sin(210*degToRad));
+					context.lineTo(x + this.radius - 6 * Math.cos(210*degToRad), y - 6 * Math.sin(210*degToRad));
+					context.closePath();
+					context.fill();
 				}
 
 			}
@@ -180,11 +199,11 @@ $(document).ready(function () {
 				context.lineTo(this.x + this.radius, y);
 
 			} else if (this.direction == "left") {
-				context.lineTo(this.x - this.radius + 8,this.y + this.radius * Math.sin(this.angle) / 2);
+				context.lineTo(this.x - this.radius,this.y + this.radius * Math.sin(this.angle));
 				context.lineTo(this.x, y + this.radius);
 
 			} else if (this.direction == "right") {
-				context.lineTo(this.x + this.radius - 8,this.y + this.radius * Math.sin(this.angle) / 2);
+				context.lineTo(this.x + this.radius,this.y + this.radius * Math.sin(this.angle));
 				context.lineTo(this.x, y + this.radius);
 			}
 
@@ -207,11 +226,11 @@ $(document).ready(function () {
 				context.lineTo(this.x + this.radius, y);
 
 			} else if (this.direction == "left") {
-				context.lineTo(this.x - this.radius + 8,this.y + this.radius * Math.sin(this.angle) / 2);
+				context.lineTo(this.x - this.radius,this.y + this.radius * Math.sin(this.angle));
 				context.lineTo(this.x, y + this.radius);
 
 			} else if (this.direction == "right") {
-				context.lineTo(this.x + this.radius - 8,this.y + this.radius * Math.sin(this.angle) / 2);
+				context.lineTo(this.x + this.radius,this.y + this.radius * Math.sin(this.angle));
 				context.lineTo(this.x, y + this.radius);
 			}
 			context.closePath();
@@ -228,7 +247,7 @@ $(document).ready(function () {
 			if (this.direction == "up") {
 				if (this.line1) { 
 					if (shapeSelection == "triangle") { //down triangle on the left side of this triangle
-						var newTriangle = new Triangle(this.x - 30, this.y - 43, "down");
+						var newTriangle = new Triangle(this.x + this.radius * Math.cos(this.angle) + 6 * Math.cos(150*degToRad) - 50, this.y - this.radius * Math.sin(this.angle) - 6 * Math.sin(150*degToRad), "down");
 						var canAdd = true;
 						// for (var i = 0; i < shapeList.length; i++) {
 						// 	if (testBoundingBox(newTriangle, shapeList[i], 50))
@@ -236,7 +255,7 @@ $(document).ready(function () {
 						// }
 						if (canAdd) {
 							shapeOptionList.push(newTriangle);
-							this.triangleList['one'] = newTriangle;
+							this.triangleList['one'] = newTriangle; //left side of up triangle (only in list form)
 						}
 
 						
@@ -257,7 +276,7 @@ $(document).ready(function () {
 						// }
 						if (canAdd) {
 							shapeOptionList.push(newTriangle);
-							this.triangleList['two'] = newTriangle;
+							this.triangleList['three'] = newTriangle;  //right side of up triangle (only in list form)
 						}
 					} else if (shapeSelection == "square") { //square on the bottom side of this triangle
 						var newSquare = new Square(this.x, this.y + 5, 50, 50);
@@ -274,7 +293,7 @@ $(document).ready(function () {
 				}
 				if (this.line3) {
 					if (shapeSelection == "triangle") { //down triangle on the right side of this triangle
-						var newTriangle = new Triangle(this.x + 30, this.y - 43, "down");
+						var newTriangle = new Triangle(this.x + this.radius * Math.cos(this.angle) + 6 * Math.cos(30*degToRad), this.y - this.radius * Math.sin(this.angle) - 6 * Math.sin(30*degToRad), "down");
 						var canAdd = true;
 						// for (var i = 0; i < shapeList.length; i++) {
 						// 	if (testBoundingBox(newTriangle, shapeList[i], 50))
@@ -282,7 +301,7 @@ $(document).ready(function () {
 						// }
 						if (canAdd) {
 							shapeOptionList.push(newTriangle);
-							this.triangleList['three'] = newTriangle;
+							this.triangleList['two'] = newTriangle; //right side of up triangle (only in list form)
 						};
 					} else if (shapeSelection == "square") {
 						//var newSquare = new Square(this.x - 55, this.y, 50, 50);
@@ -301,7 +320,7 @@ $(document).ready(function () {
 						// }
 						if (canAdd) {
 							shapeOptionList.push(newTriangle);
-							this.triangleList['one'] = newTriangle;
+							this.triangleList['three'] = newTriangle; //top side of bottom triangle (only in list form)
 						}
 					} else if (shapeSelection == "square") {
 						var newSquare = new Square(this.x, this.y - 55, 50, 50);
@@ -319,7 +338,7 @@ $(document).ready(function () {
 				}
 				if (this.line2) {
 					if (shapeSelection == "triangle") {
-						var newTriangle = new Triangle(this.x - 30, this.y + 43, "up");
+						var newTriangle = new Triangle(this.x + this.radius * Math.cos(this.angle) + 6 * Math.cos(210*degToRad) - 50, this.y + this.radius * Math.sin(this.angle) - 6 * Math.sin(210*degToRad), "up");
 						var canAdd = true;
 						// for (var i = 0; i < shapeList.length; i++) {
 						// 	if (testBoundingBox(newTriangle, shapeList[i], 50))
@@ -327,7 +346,7 @@ $(document).ready(function () {
 						// }
 						if (canAdd) {
 							shapeOptionList.push(newTriangle);
-							this.triangleList['two'] = newTriangle;
+							this.triangleList['one'] = newTriangle; //left side of bottom triangle (only in list form)
 						}
 					} else if (shapeSelection == "square") {
 						//var newSquare = new Square(this.x - 55, this.y, 50, 50);
@@ -337,7 +356,7 @@ $(document).ready(function () {
 				}
 				if (this.line3) {
 					if (shapeSelection == "triangle") {
-						var newTriangle = new Triangle(this.x + 30, this.y + 43, "up");
+						var newTriangle = new Triangle(this.x + this.radius * Math.cos(this.angle) + 6 * Math.cos(30*degToRad), this.y + this.radius * Math.sin(this.angle) + 6 * Math.sin(30*degToRad), "up");
 						var canAdd = true;
 						// for (var i = 0; i < shapeList.length; i++) {
 						// 	if (testBoundingBox(newTriangle, shapeList[i], 50))
@@ -345,7 +364,7 @@ $(document).ready(function () {
 						// }
 						if (canAdd) {
 							shapeOptionList.push(newTriangle);
-							this.triangleList['three'] = newTriangle;
+							this.triangleList['two'] = newTriangle; //right side of bottom triangle (only in list form)
 						}
 					} else if (shapeSelection == "square") {
 						//var newSquare = new Square(this.x - 55, this.y, 50, 50);
@@ -592,26 +611,26 @@ $(document).ready(function () {
 						//hit a triangle from a triangle
 						if (shapeList[j].shape == "triangle") { //shapeList holds real shape
 							if (shapeList[j].triangleList["one"] == shapeOptionList[i]) {
-								if (shapeOptionList[i].x < shapeList[j].x) {  //clicked on left side of real triangle
-									if (shapeList[j].direction == "up")  //for real up triangles
-										shapeList[j].line1 = false;
-									else if (shapeList[j].direction == "down") //for real down triangles
-										shapeList[j].line2 = false;
-									shapeOptionList[i].line3 = false;
-								}
+								//clicked on left side of real triangle
+								if (shapeList[j].direction == "up")  //for real up triangles
+									shapeList[j].line1 = false;
+								else if (shapeList[j].direction == "down") //for real down triangles
+									shapeList[j].line2 = false;
+								shapeOptionList[i].line3 = false;
+								
 								
 							} else if (shapeList[j].triangleList["two"] == shapeOptionList[i]) {
-								if (shapeOptionList[i].x > shapeList[j].x) {  //clicked on right side of real triangle
-									if (shapeList[j].direction == "up")  { //for real up triangles
-										shapeList[j].line3 = false;
-										shapeOptionList[i].line2 = false;
-									}
-									else if (shapeList[j].direction == "down") {//for real down triangles
-										shapeList[j].line3 = false;
-										shapeOptionList[i].line1 = false;
-									}
-									
+								//clicked on right side of real triangle
+								if (shapeList[j].direction == "up")  { //for real up triangles
+									shapeList[j].line3 = false;
+									shapeOptionList[i].line2 = false;
 								}
+								else if (shapeList[j].direction == "down") {//for real down triangles
+									shapeList[j].line3 = false;
+									shapeOptionList[i].line1 = false;
+								}
+								
+								
 							} else if (shapeList[j].triangleList["three"] == shapeOptionList[i]) {
 								if (shapeOptionList[i].x == shapeList[j].x) {  //clicked on bottom/top side of real triangle
 									if (shapeList[j].direction == "up") { //for real up triangles
