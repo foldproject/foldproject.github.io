@@ -8,7 +8,11 @@
  <meta charset="UTF-8"> 
 </head>
 <body>
-
+<div id="helpPdf">
+    <object id="pdfHolder" data="help.pdf" type="application/pdf">
+        <embed src="help.pdf" type="application/pdf" />
+    </object>
+</div>
 <div id="dialogoverlay"></div>
 <div id="dialogbox"> 
 	<div> 
@@ -21,6 +25,7 @@
 <div id="wrapper"> <!-- Begin Wrapper -->
 <div id="menu">
 <div id="file"><span class="underline">F</span>ile</div>
+<div id="templates">| <span class="underline">T</span>emplates</div>
 <div id="help">| <span class="underline">H</span>elp</div>	
 </div>	
 
@@ -30,14 +35,17 @@
 
 <div id="menuDropdown">
 	<div id="new">New</div>
-	<div id="open">Open</div> 
-	<div id="save">Save</div>
 	<div id="print">Print</div>
 </div>
 
+<div id="templatesDropdown">
+	<div id="cube">Cube</div>
+	<div id="rectangularPyramid">Rectangular Pyramid</div> 
+</div>
+
+
 <div class="tools button delete">Delete Mode</div>
 <div class="tools button draw">Draw Mode</div>
-
 
 </div>
 
@@ -46,8 +54,12 @@
 
 
 <div id="leftPanelContent">
-	<div id="addSquare" class="button">Add Square</div><br/><br/>
-	<div id="addTriangle" class="button">Add Triangle</div><br/>
+	<div id="addSquare" class="button square">Add Square</div><br/><br/>
+	<div id="addTriangle" class="button triangle">Add Triangle</div><br/><br/>	
+	<div id="addHexagon" class="button hexagon">Add Hexagon</div><br/><br/>
+	<div id="plusHinge" class="button">+</div>
+	<div id="alterHinge" class="button">Change Hinge Width</div>
+	<div id="minusHinge" class="button">-</div><br/><br/>
 	<div id="deleteObject" class="button">Delete Object(s)</div><br/><br/>
 	<div id="clearCanvas" class="button">Clear Canvas</div>
 </div>
@@ -68,8 +80,7 @@
 
 </div> <!-- End Right Panel -->
 
-<div id="footer">
-	<div id="helpNotifier">Press F1 for Help</div>
+<div id="footer">Press Shift+F1 for Help
 </div>
 </div> <!-- End Wrapper -->
 
